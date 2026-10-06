@@ -1,5 +1,11 @@
-import bcrypt from 'node:bcrypt';
+import bcrypt from 'bcrypt';
 
-import crypto from 'node:crypto';
+const saltround = 10;
 
-const crypto = crypto.
+const hashedPassword = await bcrypt.hash(password, saltround);
+
+const match = await bcrypt.compare(inputPassword, storedHash);
+
+if(!match) {
+    return res.status(404).send({error: "Password does not match"})
+}
